@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="light">
+  <div class="container-fluid m-2">
+    <%= link_to 'Maverick Ticketing Systems', root_path, class: "navbar-brand" %>
+    <!--    <a class="navbar-brand" href="#">Friend App</a>-->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <% if user_signed_in? and current_user.user_type == "passenger" %>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search for reviews" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <li class="nav-item">
+            <%= link_to 'Edit Profile', edit_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'View Trains', trains_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'My Bookings', tickets_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'My Reviews', reviews_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "nav-link" %>
+          </li>
+
+        <% elsif user_signed_in? and current_user.user_type == "admin" %>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <li class="nav-item">
+            <%= link_to 'Edit Profile', edit_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'View Trains', trains_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'View Users', admin_users_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'View Reviews', reviews_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "nav-link" %>
+          </li>
+        <% else %>
+          <!--          <li class="nav-item">-->
+          <%#= link_to 'About Us', home_about_path, class: "nav-link" %>
+          <!--          </li>-->
+
+          <li class="nav-item">
+            <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link" %>
+            <!--          <a class="nav-link" href="#">About Us</a>-->
+          </li>
+
+          <li class="nav-item">
+            <%= link_to 'Sign In', new_user_session_path, class: "nav-link" %>
+            <!--          <a class="nav-link" href="#">About Us</a>-->
+          </li>
+
+        <% end %>
+
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
