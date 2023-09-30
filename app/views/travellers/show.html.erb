@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render partial: 'traveller', locals: {user: @user} %>
+
+<div>
+  <%= link_to "Edit this user", edit_traveller_path(@user) %> |
+  <%= link_to "Back to users", travellers_path %>
+
+  <%= button_to "Destroy this user", traveller_path(@user), method: :delete %>
+</div>

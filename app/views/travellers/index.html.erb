@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+
+
+
+
+<h1 class="text-center">Users</h1>
+
+<table class="table table-striped table-bordered table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Phone Number</th>
+    <th>Address</th>
+    <th>Credit Card</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.name %></td>
+      <td><%= user.phone_number %></td>
+      <td><%= user.address %></td>
+      <td><%= user.credit_card_info %></td>
+      <td><%= link_to "View", traveller_path(user), class: "btn btn-primary" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to "New passenger", new_traveller_path %>

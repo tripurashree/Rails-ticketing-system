@@ -1,0 +1,10 @@
+<h1>Editing Passenger</h1>
+
+
+<%= render partial: 'form', locals: {user: @user} %>
+<br>
+
+<div>
+  <%= link_to "Show this user", travellers_path(@user) %> |
+  <%= link_to "Back to users", travellers_path %>
+</div>
