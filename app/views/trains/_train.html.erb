@@ -1,52 +1,17 @@
-<div id="<%= dom_id train %>">
-  <p>
-    <strong>Train number:</strong>
-    <%= train.train_number %>
-  </p>
 
-  <p>
-    <strong>Departure station:</strong>
-    <%= train.departure_station %>
-  </p>
+<tr>
+  <td><%=train.train_number%></td>
+  <td><%=train.departure_station%></td>
+  <td><%=train.termination_station%></td>
+  <td><%=train.departure_date%></td>
+  <td><%=train.departure_time%></td>
+  <td><%=train.arrival_date%></td>
+  <td><%=train.arrival_time%></td>
+  <td><%=train.ticket_price%></td>
+  <td><%=train.train_capacity%></td>
+  <td><%=train.seats_left%></td>
+  <td><%= link_to "Show this train", train %></td>
+  <!--Addmoretablecellsforotherproductattributes-->
+</tr>
 
-  <p>
-    <strong>Termination station:</strong>
-    <%= train.termination_station %>
-  </p>
 
-  <p>
-    <strong>Departure date:</strong>
-    <%= train.departure_date %>
-  </p>
-
-  <p>
-    <strong>Departure time:</strong>
-    <%= train.departure_time %>
-  </p>
-
-  <p>
-    <strong>Arrival date:</strong>
-    <%= train.arrival_date %>
-  </p>
-
-  <p>
-    <strong>Arrival time:</strong>
-    <%= train.arrival_time %>
-  </p>
-
-  <p>
-    <strong>Ticket price:</strong>
-    <%= train.ticket_price %>
-  </p>
-
-  <p>
-    <strong>Train capacity:</strong>
-    <%= train.train_capacity %>
-  </p>
-
-  <p>
-    <strong>Seats left:</strong>
-    <%= train.seats_left %>
-  </p>
-
-</div>

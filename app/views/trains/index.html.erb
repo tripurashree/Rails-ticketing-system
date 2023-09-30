@@ -1,14 +1,47 @@
-<p style="color: green"><%= notice %></p>
+<style>
+    .bordered-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .bordered-table th, .bordered-table td {
+        border: 1px solid #000; /* Change #000 to the color you want for the border */
+        padding: 8px;
+        text-align: left;
+    }
+
+    .bordered-table th {
+        background-color: #f0f0f0; /* Change to the background color you want for headers */
+    }
+</style>
 
 <h1>Trains</h1>
 
 <div id="trains">
-  <% @trains.each do |train| %>
-    <%= render train %>
-    <p>
-      <%= link_to "Show this train", train %>
-    </p>
-  <% end %>
+  <table class="bordered-table">
+    <thead>
+    <tr style="border: 1px solid #000;">
+      <th><strong>Train Number:</strong></th>
+      <th><strong>Departure Station:</strong></th>
+      <th><strong>Termination Station:</strong></th>
+      <th><strong>Departure Date:</strong></th>
+      <th><strong>Departure Time:</strong></th>
+      <th><strong>Arrival Date:</strong></th>
+      <th><strong>Arrival Time:</strong></th>
+      <th><strong>Ticket Price:</strong></th>
+      <th><strong>Train Capacity:</strong></th>
+      <th><strong>Seats Left:</strong></th>
+      <th><strong>Visit Train</strong></th>
+      <!--Addmoretableheadersasneeded-->
+    </tr>
+    </thead>
+    <tbody>
+
+    <% @trains.each do |train| %>
+      <%= render train %>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to "New train", new_train_path %>

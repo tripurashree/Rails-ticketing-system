@@ -12,56 +12,76 @@
   <% end %>
 
   <div>
-    <%= form.label :train_number, style: "display: block" %>
-    <%= form.number_field :train_number %>
+    <%= form.label :train_number, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
+    <%= form.number_field :train_number, min:0 %>
   </div>
-
+  <br>
   <div>
-    <%= form.label :departure_station, style: "display: block" %>
+    <%= form.label :departure_station, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
     <%= form.text_field :departure_station %>
   </div>
-
+  <br>
   <div>
-    <%= form.label :termination_station, style: "display: block" %>
+    <%= form.label :termination_station, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
     <%= form.text_field :termination_station %>
   </div>
-
+  <br>
   <div>
-    <%= form.label :departure_date, style: "display: block" %>
-    <%= form.date_field :departure_date %>
+    <%= form.label :departure_date, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
+    <%= form.date_field :departure_date, id: 'departure_date' %>
   </div>
 
+  <br>
   <div>
-    <%= form.label :departure_time, style: "display: block" %>
+    <%= form.label :departure_time, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
     <%= form.time_field :departure_time %>
   </div>
-
+  <br>
   <div>
-    <%= form.label :arrival_date, style: "display: block" %>
-    <%= form.date_field :arrival_date %>
+    <%= form.label :arrival_date, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
+    <%= form.date_field :arrival_date, id: 'arrival_date' , disabled: true%>
   </div>
-
+  <br>
   <div>
-    <%= form.label :arrival_time, style: "display: block" %>
-    <%= form.time_field :arrival_time %>
+    <%= form.label :arrival_time, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
+    <%= form.time_field :arrival_time  %>
   </div>
-
+  <br>
   <div>
-    <%= form.label :ticket_price, style: "display: block" %>
+    <%= form.label :ticket_price, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
     <%= form.text_field :ticket_price %>
   </div>
-
+  <br>
   <div>
-    <%= form.label :train_capacity, style: "display: block" %>
+    <%= form.label :train_capacity, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
     <%= form.number_field :train_capacity %>
   </div>
-
+  <!--
   <div>
-    <%= form.label :seats_left, style: "display: block" %>
-    <%= form.number_field :seats_left %>
+    <%= form.label :seats_left, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
+  <%= form.number_field :seats_left %>
   </div>
-
+-->
+  <br>
   <div>
     <%= form.submit %>
   </div>
+
+  <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', (event) => {
+          const departureDateInput = document.getElementById('departure_date');
+          const arrivalDateInput = document.getElementById('arrival_date');
+          // Set the min attribute to the current date
+          const currentDate = new Date().toISOString().split('T')[0];
+          departureDateInput.setAttribute('min', currentDate);
+
+          departureDateInput.addEventListener('input', (event) => {
+              const selectedDepartureDate = event.target.value;
+              arrivalDateInput.setAttribute('min', selectedDepartureDate);
+              arrivalDateInput.removeAttribute('disabled');
+          });
+      });
+
+  </script>
+
 <% end %>
