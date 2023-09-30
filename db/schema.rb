@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_09_29_235555) do
+ActiveRecord::Schema[7.1].define(version: 2023_09_30_012127) do
+  create_table "reviews", force: :cascade do |t|
+    t.text "feedback"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "train_id", null: false
+    t.index ["train_id"], name: "index_reviews_on_train_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.integer "confirmation_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "train_id", null: false
+    t.index ["confirmation_number"], name: "index_tickets_on_confirmation_number", unique: true
+    t.index ["train_id"], name: "index_tickets_on_train_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
+  end
+
   create_table "trains", force: :cascade do |t|
     t.integer "train_number"
     t.string "departure_station"
@@ -42,4 +63,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_09_29_235555) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reviews", "trains"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "tickets", "trains"
+  add_foreign_key "tickets", "users"
 end
