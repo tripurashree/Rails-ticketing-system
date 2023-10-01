@@ -3,31 +3,15 @@ class TrainsController < ApplicationController
 
   # GET /trains or /trains.json
   def index
-    @trains = Train.all
-    if current_user.id == 1
-      @trains = Train.all
-    else
-      depart_station = params[:departure_station]
-      arrival_station = params[:arrival_station]
+    depart_station = params[:departure_station]
+    arrival_station = params[:arrival_station]
+    if depart_station.present? && arrival_station.present?
       print("DEBUG        $#$#$#",depart_station, arrival_station)
       @trains = Train.where(departure_station: params[:departure_station], termination_station: params[:arrival_station])
-      print("DEBUG   trains      $#$#$#",@trains)
+    else
+      @trains = Train.all
     end
-    if params[:filter_applied]
-      depart_station = params[:departure_station]
-      arrival_station = params[:arrival_station]
-      review = params[:review_rating]
-      unless depart_station.blank?
-        @trains = @trains.where(:departure_station => depart_station)
-      end
-      unless arrival_station.blank?
-        @trains = @trains.where(:termination_station => arrival_station)
-      end
-      unless review.blank?
-        @trains = @trains.where("rating >= :review", review: review)
-      end
-    end
-
+    print("DEBUG   trains      $#$#$#",@trains)
   end
 
   # GET /trains/1 or /trains/1.json

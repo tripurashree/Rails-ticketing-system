@@ -9,6 +9,6 @@ class Train < ApplicationRecord
   validates :ticket_price, presence:true
   validates :train_capacity, presence:true
 
-  has_many :reviews
-  has_many :tickets
+  has_many :reviews, dependent: :destroy
+  has_many :tickets, dependent: :destroy
 end

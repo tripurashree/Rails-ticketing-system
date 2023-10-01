@@ -26,6 +26,7 @@
     <th>Address</th>
     <th>Credit Card</th>
     <th>Visit</th>
+    <th>Destroy</th>
   </tr>
   </thead>
 
@@ -38,6 +39,7 @@
       <td><%= user.address %></td>
       <td><%= user.credit_card_info %></td>
       <td><%= link_to "View", traveller_path(user), class: "btn btn-primary" %></td>
+      <td><%= button_to "Destroy this user", traveller_path(user), method: :delete %></td>
     </tr>
   <% end %>
   </tbody>

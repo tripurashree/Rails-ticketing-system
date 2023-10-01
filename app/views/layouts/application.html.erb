@@ -13,6 +13,9 @@
   <body>
   <p style="color: green" class="notice"><%= notice %></p>
   <p style="color: red" class="alert"><%= alert %></p>
+  <% if user_signed_in? %>
+  <%= link_to "Home Page", home_index_path, class: "nav-link ml-auto" %>
+  <%end %>
   <%= yield %>
   </body>
 </html>
