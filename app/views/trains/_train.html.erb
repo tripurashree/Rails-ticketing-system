@@ -10,7 +10,9 @@
   <td><%=train.ticket_price%></td>
   <td><%=train.train_capacity%></td>
   <td><%=train.seats_left%></td>
+  <%if current_user.id==1%>
   <td><%= link_to "Show this train", train %></td>
+  <% end %>
   <!--Addmoretablecellsforotherproductattributes-->
 </tr>
 

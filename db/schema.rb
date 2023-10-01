@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_09_30_232710) do
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.integer "confirmation_number"
+    t.string "confirmation_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false

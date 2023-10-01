@@ -5,6 +5,8 @@
 <br>
 
 <div>
-  <%= link_to "Show this user", travellers_path(@user) %> |
-  <%= link_to "Back to users", travellers_path %>
+  <%if current_user.id == 1%>
+  |  <%= link_to "Back to users", travellers_path %>
+  <%end%>
+
 </div>

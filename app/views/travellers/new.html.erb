@@ -52,7 +52,9 @@
   </div>
 <% end %>
 
+<% if current_user.id == 1 %>
+  <div>
+    <%= link_to "Back to users", travellers_path %>
+  </div>
+<% end %>
 
-<div>
-  <%= link_to "Back to users", travellers_path %>
-</div>

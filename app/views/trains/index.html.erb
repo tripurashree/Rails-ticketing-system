@@ -31,7 +31,9 @@
       <th><strong>Ticket Price:</strong></th>
       <th><strong>Train Capacity:</strong></th>
       <th><strong>Seats Left:</strong></th>
+      <%if current_user.id==1%>
       <th><strong>Visit Train</strong></th>
+      <% end %>
       <!--Addmoretableheadersasneeded-->
     </tr>
     </thead>
@@ -44,4 +46,6 @@
   </table>
 </div>
 
+<%if current_user.id==1%>
 <%= link_to "New train", new_train_path %>
+<% end %>

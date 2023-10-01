@@ -1,37 +1,53 @@
 <h1 class="text-center">Welcome to Rail Ticketing Services</h1>
+<p>Purchase ticket on the go ...</p>
 <br>
+
+
 <br>
+
 
 
 <% if current_user %>
+  <% if current_user.name.blank? %>
+    <label>Please update your profile for smoother experience</label>
+    <%= link_to "Update Profile", edit_traveller_path(current_user.id), class: "nav-link" %>
+  <% else %>
+    Logged in as <%= current_user.name %>.
+  <%end%>
 
   <nav class="navbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <%= link_to "Book a train", new_train_path, class: "nav-link" %>
+        <%= link_to "Update Profile", edit_traveller_path(current_user.id), class: "nav-link" %>
+        | <%= link_to "View Profile", traveller_path(current_user.id), class: "nav-link" %>
+      </li>
+      <% if current_user.id == 1 %>
+        <li class="nav-item">
+          <%= link_to "View Passengers", travellers_path, class: "nav-link" %>
+        </li>
+      <% end %>
+      <li class="nav-item">
+          <%= link_to "View Trains", trains_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
-        <%= link_to "View travel history", travellers_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Book a ticket", tickets_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to "Cancel a ticket", home_index_path, class: "nav-link" %>
+        <%= link_to "View Bookings", tickets_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
         <%= link_to "New Reviews", new_review_path, class: "nav-link" %>
+        | <%= link_to "View Reviews", reviews_path, class: "nav-link" %>
       </li>
+
       <li class="nav-item">
         <%= link_to "SignOut", destroy_user_session_path, method: :delete, class: "nav-link" %>
       </li>
+      <% if current_user.id != 1 %>
+      <li class="nav-item">
+        <%= button_to "Delete Account", traveller_path(current_user), method: :delete %>
+      </li>
+      <% end %>
       <!-- Add more navigation links as needed -->
     </ul>
   </nav>
-
-  Logged in as <%= current_user.name %>.
-  <p>Purchase ticket on the go ...</p>
-  <%= link_to 'View all trains', trains_path %><br>
 
 
 <% else %>
