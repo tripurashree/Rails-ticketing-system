@@ -1,14 +1,50 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Reviews</h1>
 
-<div id="reviews">
-  <% @reviews.each do |review| %>
-    <%= render review %>
-    <p>
-      <%= link_to "Show this review", review %>
-    </p>
-  <% end %>
-</div>
 
-<%= link_to "New review", new_review_path %>
+<%= form_tag reviews_path, method: 'get' do |form| %>
+  <%= hidden_field_tag "filter_applied", true %>
+
+  <label for="reviews_for_train" class="m-3">Enter train number: </label>
+  <input type="text" name="train_number" id="reviews_for_train" class="m-3">
+
+
+  <%= submit_tag 'Search', class: "btn btn-outline-success m-3" %>
+
+
+
+
+
+<% end %>
+
+<table class="table table-striped table-bordered table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>User Name</th>
+    <th>Train Number</th>
+    <th>Rating</th>
+    <th>Feedback</th>
+    <th>Show</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @reviews.each do |review| %>
+    <tr>
+      <td><%= review.user.name %></td>
+      <td><%= review.train.train_number %></td>
+      <td><%= review.rating %></td>
+      <td><%= review.feedback %></td>
+      <td><%= link_to "Show this review", review %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Add Review", new_review_path %>
+<!--<div id="reviews">-->
+<%# @reviews.each do |review| %>
+<%#= render review %>
+<%#= link_to "Show this review", review %>
+<%# end %>
+<!--</div>-->
+

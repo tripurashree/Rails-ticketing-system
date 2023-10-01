@@ -1,4 +1,5 @@
 <%= form_with(model: review) do |form| %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
   <% if review.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(review.errors.count, "error") %> prohibited this review from being saved:</h2>
@@ -11,6 +12,15 @@
     </div>
   <% end %>
 
+  <div>
+  <%= form.label :train_number, style: "display: block" %>
+  <%= form.select :train_number, @trains_list %>
+  </div>
+
+  <div>
+    <%= form.label :rating, style: "display: block" %>
+    <%= form.select :rating, [0,1,2,3,4,5] %>
+  </div>
   <div>
     <%= form.label :feedback, style: "display: block" %>
     <%= form.text_area :feedback %>

@@ -8,4 +8,7 @@ class Train < ApplicationRecord
   validates :arrival_time, presence:true
   validates :ticket_price, presence:true
   validates :train_capacity, presence:true
+
+  has_many :reviews
+  has_many :tickets
 end
