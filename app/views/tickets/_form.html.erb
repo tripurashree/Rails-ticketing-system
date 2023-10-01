@@ -1,22 +1,53 @@
-<%= form_with(model: ticket) do |form| %>
-  <% if ticket.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+<%= form_for(@ticket) do |form| %>
+  <%= form.hidden_field :train_id, value: @train.id %>
+  <%= form.hidden_field :user_id, value: @user.id %>
+  <%= form.hidden_field :confirmation_number, value: generate_confirmation_number %>
+  <br>
+  <table class="table table-striped table-bordered table-hover">
+    <tr>
+      <td><%= form.label :train_number, style: "display: block" %></td>
+      <td><%= form.label @train.train_number %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :departure_station, style: "display:block" %></td>
+      <td><%= form.label @train.departure_station %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :termination_station, style: "display:block" %></td>
+      <td><%= form.label @train.termination_station %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :departure_date, style: "display:block" %></td>
+      <td><%= form.label @train.departure_date %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :departure_time, style: "display:block" %></td>
+      <td><%= form.label @train.departure_time %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :arrival_date, style: "display:block" %></td>
+      <td><%= form.label @train.arrival_date %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :arrival_time, style: "display:block" %></td>
+      <td><%= form.label @train.arrival_time %></td>
+    </tr>
+    <tr>
+      <td><%= form.label :ticket_price, style: "display:block" %></td>
+      <!--      TODO : Convert to decimal-->
+      <td><%= form.label @train.ticket_price.to_i %></td>
+    </tr>
 
-      <ul>
-        <% ticket.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  </table>
   <div>
-    <%= form.label :confirmation_number, style: "display: block" %>
-    <%= form.number_field :confirmation_number %>
+
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary m-3" %>
+  </div>
+
+  <div>
+    <%= link_to "Back to tickets", tickets_path %>
   </div>
 <% end %>

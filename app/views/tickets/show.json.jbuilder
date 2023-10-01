@@ -1,1 +1,1 @@
-json.partial! "tickets/ticket", ticket: @ticket
+xjson.partial! "tickets/ticket", ticket: @ticket
