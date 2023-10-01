@@ -7,9 +7,13 @@ class TrainsController < ApplicationController
     arrival_station = params[:arrival_station]
     if depart_station.present? && arrival_station.present?
       print("DEBUG        $#$#$#",depart_station, arrival_station)
-      @trains = Train.where(departure_station: params[:departure_station], termination_station: params[:arrival_station])
+      @trains = Train.where(departure_station: params[:departure_station], termination_station: params[:arrival_station]).where( 'ratings >= ?', params[:review_rating])
     else
-      @trains = Train.all
+      if current_user.id !=1
+       @trains = Train.where('departure_date > ?', Date.current).where( 'seats_left > ?', 0 )
+      else
+        @trains = Train.all
+      end
     end
     print("DEBUG   trains      $#$#$#",@trains)
   end

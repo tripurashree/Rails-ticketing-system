@@ -1,9 +1,24 @@
+<style>
+    .bordered-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
+    .bordered-table th, .bordered-table td {
+        border: 1px solid #000; /* Change #000 to the color you want for the border */
+        padding: 8px;
+        text-align: left;
+    }
+
+    .bordered-table th {
+        background-color: #f0f0f0; /* Change to the background color you want for headers */
+    }
+</style>
 <%= render @ticket %>
 
 <div>
-  <%= link_to "Edit this ticket", edit_ticket_path(@ticket) %> |
-  <%= link_to "Back to tickets", tickets_path %>
+
+  <%= link_to "See tickets", tickets_path %>
 
   <%= button_to "Destroy this ticket", @ticket, method: :delete %>
 </div>

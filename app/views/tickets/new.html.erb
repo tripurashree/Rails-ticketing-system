@@ -1,6 +1,82 @@
+<style>
+    .bordered-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .bordered-table th, .bordered-table td {
+        border: 1px solid #000; /* Change #000 to the color you want for the border */
+        padding: 8px;
+        text-align: left;
+    }
+
+    .bordered-table th {
+        background-color: #f0f0f0; /* Change to the background color you want for headers */
+    }
+</style>
+<h1 class="text-center">Book your Ticket</h1>
+<!--add functionality-->
+<h2>Search your train:</h2>
+<%= form_tag trains_path, method: 'get' do |form| %>
+  <label for="departure_station">Enter Departure Station: </label>
+  <%= select_tag :departure_station, options_for_select(@unique_departure_stations) %>
+  <label>   </label>
+  <label for="arrival_station" class="m-3">Enter Arrival Station: </label>
+  <%= select_tag :arrival_station, options_for_select(@unique_arrival_stations) %>
+  <label>    </label>
+  <label for="sort_by_review" class="m-3">Sort by Review Rating:</label>
+  <select name="review_rating" id="sort_by_review" class="m-3">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
+  <%= submit_tag 'Search', class: "btn btn-outline-success m-3" %>
+<% end %>
+
+
+
+<br><br>
+
+<h4>All available trains</h4>
+<table class="bordered-table">
+  <thead >
+  <tr>
+    <th>Train Number</th>
+    <th>Departure Station</th>
+    <th>Termination station</th>
+    <th>Departure Date</th>
+    <th>Departure time</th>
+    <th>Arrival Date</th>
+    <th>Arrival Time</th>
+    <th>Ticket Price</th>
+    <th>Train Capacity</th>
+    <th>Seats left</th>
+    <th>Rating</th>
+    <th>Booking</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @trains.each do |train| %>
+    <tr>
+      <td><%= train.train_number %></td>
+      <td><%= train.departure_station %></td>
+      <td><%= train.termination_station %></td>
+      <td><%= train.departure_date %></td>
+      <td><%= train.departure_time %></td>
+      <td><%= train.arrival_date %></td>
+      <td><%= train.arrival_time %></td>
+      <td><%= train.ticket_price %></td>
+      <td><%= train.train_capacity %></td>
+      <td><%= train.seats_left %></td>
+      <td><%= train.ratings %></td>
+      <td><%= button_to "Book Ticket", tickets_path, method: :post, params: {train_id: train.id, user_id: current_user}, class: "btn btn-primary m-3" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 
 <br>
-<h1>Book a ticket</h1>
-
-
-<%= render partial: 'form', locals: {ticket: @ticket, train: @train} %>

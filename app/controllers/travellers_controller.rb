@@ -49,7 +49,7 @@ class TravellersController < ApplicationController
 
   def destroy
     @user.destroy!
-    if params[:id] !=1
+    if current_user.id !=1
       redirect_to destroy_user_session_path
     else
       respond_to do |format|

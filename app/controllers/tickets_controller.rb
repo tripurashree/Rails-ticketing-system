@@ -3,11 +3,15 @@ class TicketsController < ApplicationController
 
   # GET /tickets or /tickets.json
   def index
-    @tickets = Ticket.all
-    @trains = Train.all
-    @unique_departure_stations = Train.distinct.pluck(:departure_station)
-    @unique_arrival_stations = Train.distinct.pluck(:termination_station)
-  end
+    if current_user.id == 1
+      @tickets = Ticket.all
+    else
+
+      @upcoming_tickets = Ticket.includes(:train).joins(:train).where('trains.departure_date > ?', Date.current).where(:user_id => current_user.id)
+      @past_tickets = Ticket.includes(:train).joins(:train).where('trains.departure_date <= ?', Date.current).where(:user_id => current_user.id)
+    end
+end
+
 
   # GET /tickets/1 or /tickets/1.json
   def show
@@ -15,9 +19,9 @@ class TicketsController < ApplicationController
 
   # GET /tickets/new
   def new
-    @ticket = Ticket.new
-    @train = Train.find_by(params[:train_id])
-    @user = User.find_by(params[:user_id])
+    @trains = Train.all
+    @unique_departure_stations = Train.distinct.pluck(:departure_station)
+    @unique_arrival_stations = Train.distinct.pluck(:termination_station)
   end
 
   # GET /tickets/1/edit
@@ -26,9 +30,11 @@ class TicketsController < ApplicationController
 
   # POST /tickets or /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
-    print("DEBUG for ticket confirmation",params[:ticket][:confirmation_number])
-    @ticket.confirmation_number = params[:ticket][:confirmation_number]
+    @train = Train.find(params[:train_id])
+    @ticket = @train.tickets.build
+    @ticket.user_id = params[:user_id]
+    @ticket.confirmation_number = view_context.generate_confirmation_number
+    print("DEBUG for ticket confirmation",@ticket)
     print(" DEBUG for ticket to seats link  ",@ticket.train.seats_left)
     if @ticket.train.seats_left >= 0
       respond_to do |format|
@@ -60,8 +66,10 @@ class TicketsController < ApplicationController
 
   # DELETE /tickets/1 or /tickets/1.json
   def destroy
-    @ticket.destroy!
 
+    @ticket.train.increment(:seats_left, 1)
+    @ticket.train.save
+    @ticket.destroy!
     respond_to do |format|
       format.html { redirect_to tickets_url, notice: "Ticket was successfully destroyed." }
       format.json { head :no_content }
