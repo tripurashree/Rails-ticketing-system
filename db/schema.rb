@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_09_30_012127) do
+ActiveRecord::Schema[7.1].define(version: 2023_09_30_232710) do
   create_table "reviews", force: :cascade do |t|
     t.text "feedback"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "train_id", null: false
+    t.integer "rating"
     t.index ["train_id"], name: "index_reviews_on_train_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
@@ -45,6 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_09_30_012127) do
     t.integer "seats_left"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "ratings"
   end
 
   create_table "users", force: :cascade do |t|

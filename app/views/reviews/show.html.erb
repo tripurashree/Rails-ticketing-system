@@ -1,9 +1,7 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @review %>
 
 <div>
-  <%= link_to "Edit this review", edit_review_path(@review) %> |
+  <%= link_to "Edit this review", url_for(controller: 'reviews', action: 'edit', train_id: @review.train.id, user_id: current_user) %> |
   <%= link_to "Back to reviews", reviews_path %>
 
   <%= button_to "Destroy this review", @review, method: :delete %>

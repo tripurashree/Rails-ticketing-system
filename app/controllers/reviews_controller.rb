@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: %i[ show edit update destroy ]
-
+  #before_action :authenticate_user!
   # GET /reviews or /reviews.json
   def index
     @reviews = Review.all
@@ -14,7 +14,11 @@ class ReviewsController < ApplicationController
   def new
     @trains_list = Train.all.map {|train| train.train_number}.uniq
     print('DEBUG BEINGS:::::::::::::::::::::',@trains_list)
+    #@user = User.find(params[:user_id])
+    #@train = Train.find(params[:train_id])
     @review = Review.new
+    #@review = @train.reviews.build
+    @review.user_id = current_user.id
 
   end
 
@@ -27,9 +31,14 @@ class ReviewsController < ApplicationController
   # POST /reviews or /reviews.json
   def create
     @review = Review.new(review_params)
+    @review.user_id = current_user.id
+    @review.train_id = Train.find_by(train_number: params[:review][:train_number]).id
 
     respond_to do |format|
       if @review.save
+        train_rating = @review.train.reviews.average(:rating)
+
+        @review.train.update(:ratings => train_rating)
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
         format.json { render :show, status: :created, location: @review }
       else
@@ -70,6 +79,6 @@ class ReviewsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def review_params
-    params.require(:review).permit(:feedback)
+    params.require(:review).permit(:feedback,:rating)
   end
 end
