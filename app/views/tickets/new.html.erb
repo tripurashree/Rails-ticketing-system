@@ -1,9 +1,6 @@
-<h1>New ticket</h1>
-
-<%= render "form", ticket: @ticket %>
 
 <br>
+<h1>Book a ticket</h1>
 
-<div>
-  <%= link_to "Back to tickets", tickets_path %>
-</div>
+
+<%= render partial: 'form', locals: {ticket: @ticket, train: @train} %>

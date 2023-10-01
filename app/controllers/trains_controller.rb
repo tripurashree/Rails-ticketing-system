@@ -4,6 +4,30 @@ class TrainsController < ApplicationController
   # GET /trains or /trains.json
   def index
     @trains = Train.all
+    if current_user.id == 1
+      @trains = Train.all
+    else
+      depart_station = params[:departure_station]
+      arrival_station = params[:arrival_station]
+      print("DEBUG        $#$#$#",depart_station, arrival_station)
+      @trains = Train.where(departure_station: params[:departure_station], termination_station: params[:arrival_station])
+      print("DEBUG   trains      $#$#$#",@trains)
+    end
+    if params[:filter_applied]
+      depart_station = params[:departure_station]
+      arrival_station = params[:arrival_station]
+      review = params[:review_rating]
+      unless depart_station.blank?
+        @trains = @trains.where(:departure_station => depart_station)
+      end
+      unless arrival_station.blank?
+        @trains = @trains.where(:termination_station => arrival_station)
+      end
+      unless review.blank?
+        @trains = @trains.where("rating >= :review", review: review)
+      end
+    end
+
   end
 
   # GET /trains/1 or /trains/1.json
@@ -22,7 +46,7 @@ class TrainsController < ApplicationController
   # POST /trains or /trains.json
   def create
     @train = Train.new(train_params)
-
+    @train.seats_left = @train.train_capacity
     respond_to do |format|
       if @train.save
         format.html { redirect_to train_url(@train), notice: "Train was successfully created." }
@@ -58,13 +82,13 @@ class TrainsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_train
-      @train = Train.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_train
+    @train = Train.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def train_params
-      params.require(:train).permit(:train_number, :departure_station, :termination_station, :departure_date, :departure_time, :arrival_date, :arrival_time, :ticket_price, :train_capacity, :seats_left)
-    end
+  # Only allow a list of trusted parameters through.
+  def train_params
+    params.require(:train).permit(:train_number, :departure_station, :termination_station, :departure_date, :departure_time, :arrival_date, :arrival_time, :ticket_price, :train_capacity, :seats_left)
+  end
 end

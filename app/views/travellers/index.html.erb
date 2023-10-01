@@ -1,11 +1,23 @@
-<p style="color: green"><%= notice %></p>
+<style>
+    .bordered-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
+    .bordered-table th, .bordered-table td {
+        border: 1px solid #000; /* Change #000 to the color you want for the border */
+        padding: 8px;
+        text-align: left;
+    }
 
-
+    .bordered-table th {
+        background-color: #f0f0f0; /* Change to the background color you want for headers */
+    }
+</style>
 
 <h1 class="text-center">Users</h1>
 
-<table class="table table-striped table-bordered table-hover">
+<table class="bordered-table">
   <thead class="thead-dark">
   <tr>
     <th>Email</th>
@@ -13,6 +25,7 @@
     <th>Phone Number</th>
     <th>Address</th>
     <th>Credit Card</th>
+    <th>Visit</th>
   </tr>
   </thead>
 
