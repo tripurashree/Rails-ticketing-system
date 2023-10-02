@@ -17,7 +17,7 @@
 <h1 class="text-center">Book your Ticket</h1>
 <!--add functionality-->
 <h2>Search your train:</h2>
-<%= form_tag trains_path, method: 'get' do |form| %>
+<%= form_tag new_ticket_path, method: 'get' do |form| %>
   <label for="departure_station">Enter Departure Station: </label>
   <%= select_tag :departure_station, options_for_select(@unique_departure_stations) %>
   <label>   </label>

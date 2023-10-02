@@ -3,19 +3,7 @@ class TrainsController < ApplicationController
 
   # GET /trains or /trains.json
   def index
-    depart_station = params[:departure_station]
-    arrival_station = params[:arrival_station]
-    if depart_station.present? && arrival_station.present?
-      print("DEBUG        $#$#$#",depart_station, arrival_station)
-      @trains = Train.where(departure_station: params[:departure_station], termination_station: params[:arrival_station]).where( 'ratings >= ?', params[:review_rating])
-    else
-      if current_user.id !=1
-       @trains = Train.where('departure_date > ?', Date.current).where( 'seats_left > ?', 0 )
-      else
-        @trains = Train.all
-      end
-    end
-    print("DEBUG   trains      $#$#$#",@trains)
+    @trains = Train.all
   end
 
   # GET /trains/1 or /trains/1.json

@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
       @upcoming_tickets = Ticket.includes(:train).joins(:train).where('trains.departure_date > ?', Date.current).where(:user_id => current_user.id)
       @past_tickets = Ticket.includes(:train).joins(:train).where('trains.departure_date <= ?', Date.current).where(:user_id => current_user.id)
     end
-end
+  end
 
 
   # GET /tickets/1 or /tickets/1.json
@@ -22,6 +22,17 @@ end
     @trains = Train.all
     @unique_departure_stations = Train.distinct.pluck(:departure_station)
     @unique_arrival_stations = Train.distinct.pluck(:termination_station)
+
+    if params[:departure_station].present? && params[:arrival_station].present?
+      @trains = Train.where(departure_station: params[:departure_station], termination_station: params[:arrival_station]).where( 'ratings >= ?', params[:review_rating])
+    else
+      if current_user.id !=1
+        @trains = Train.where('departure_date > ?', Date.current).where( 'seats_left > ?', 0 )
+      else
+        @trains = Train.all
+      end
+    end
+    print("DEBUG   trains      $#$#$#",@trains)
   end
 
   # GET /tickets/1/edit
