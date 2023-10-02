@@ -3,7 +3,13 @@ class TrainsController < ApplicationController
 
   # GET /trains or /trains.json
   def index
-    @trains = Train.all
+
+    if current_user.id == 1
+      @trains = Train.all
+    else
+      @trains = Train.where('departure_date >= ?', Date.current).where( 'seats_left > ?', 0 )
+
+    end
   end
 
   # GET /trains/1 or /trains/1.json
