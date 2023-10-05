@@ -48,10 +48,11 @@ class TravellersController < ApplicationController
 
 
   def destroy
-    @user.destroy!
     if current_user.id !=1
+      @user.destroy!
       redirect_to destroy_user_session_path
     else
+      @user.destroy!
       respond_to do |format|
         format.html { redirect_to travellers_url, notice: "User was successfully destroyed." }
         format.json { head :no_content }
