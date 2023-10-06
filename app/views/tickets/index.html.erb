@@ -94,9 +94,9 @@
       <th>Departure Station</th>
       <th>Termination station</th>
       <th>Departure Date</th>
+      <th>Departure Time</th>
       <th>Arrival Date</th>
       <th>Arrival Time</th>
-      <th>Ratings</th>
       <th>Ticket Price</th>
       <th>Confirmation Number</th>
       <th>Booking</th>
@@ -110,9 +110,9 @@
         <td><%= ticket.train.departure_station %></td>
         <td><%= ticket.train.termination_station %></td>
         <td><%= ticket.train.departure_date %></td>
+        <td><%= ticket.train.departure_time %></td>
         <td><%= ticket.train.arrival_date %></td>
         <td><%= ticket.train.arrival_time %></td>
-        <td><%= ticket.train.ratings %></td>
         <td><%= ticket.train.ticket_price %></td>
         <td><%= ticket.confirmation_number %></td>
         <td><%= button_to "Cancel Ticket", ticket, method: :delete, data: { confirm: 'Are you sure you want to cancel the ticket?' }, class: "btn btn-primary m-3" %></td>

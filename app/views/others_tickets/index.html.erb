@@ -1,0 +1,60 @@
+<style>
+    .bordered-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .bordered-table th, .bordered-table td {
+        border: 1px solid #000; /* Change #000 to the color you want for the border */
+        padding: 8px;
+        text-align: left;
+    }
+
+    .bordered-table th {
+        background-color: #f0f0f0; /* Change to the background color you want for headers */
+    }
+</style>
+<h1>Others Tickets Booked by you</h1>
+
+
+  <table class="bordered-table" >
+    <thead >
+    <tr>
+      <th>Booked For</th>
+      <th>Train Number</th>
+      <th>Departure Station</th>
+      <th>Termination station</th>
+      <th>Departure Date</th>
+      <th>Departure Time</th>
+      <th>Arrival Date</th>
+      <th>Arrival Time</th>
+      <th>Ticket Price</th>
+      <th>Confirmation Number</th>
+      <th>Cancel Ticket</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @past_tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.user.email %></td>
+        <td><%= ticket.train.train_number %></td>
+        <td><%= ticket.train.departure_station %></td>
+        <td><%= ticket.train.termination_station %></td>
+        <td><%= ticket.train.departure_date %></td>
+        <td><%= ticket.train.departure_time %></td>
+        <td><%= ticket.train.arrival_date %></td>
+        <td><%= ticket.train.arrival_time %></td>
+        <td><%= ticket.train.ticket_price %></td>
+        <td><%= ticket.confirmation_number %></td>
+        <td><%= button_to "Cancel Ticket", others_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure you want to cancel the ticket?' }, class: "btn btn-primary m-3" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+<br><br>
+
+<%= link_to "Create Tickets for  others", new_others_ticket_path %>
+
+
