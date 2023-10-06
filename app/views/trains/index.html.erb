@@ -28,11 +28,12 @@
       <th><strong>Departure Time:</strong></th>
       <th><strong>Arrival Date:</strong></th>
       <th><strong>Arrival Time:</strong></th>
+      <th><strong>Ratings:</strong></th>
       <th><strong>Ticket Price:</strong></th>
       <th><strong>Train Capacity:</strong></th>
       <th><strong>Seats Left:</strong></th>
       <%if current_user.id==1%>
-      <th><strong>Visit Train</strong></th>
+        <th><strong>Visit Train</strong></th>
       <% end %>
       <!--Addmoretableheadersasneeded-->
     </tr>
@@ -48,5 +49,5 @@
 </div>
 
 <%if current_user.id==1%>
-<%= link_to "New train", new_train_path %>
+  <%= link_to "New train", new_train_path %>
 <% end %>

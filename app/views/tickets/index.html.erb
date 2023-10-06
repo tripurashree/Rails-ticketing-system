@@ -17,37 +17,39 @@
 <h1>Tickets</h1>
 
 <%if current_user.id==1 %>
-<table class="bordered-table" >
-  <thead >
-  <tr>
-    <th>Train Number</th>
-    <th>Departure Station</th>
-    <th>Termination station</th>
-    <th>Departure Date</th>
-    <th>Arrival Date</th>
-    <th>Arrival Time</th>
-    <th>Ticket Price</th>
-    <th>Confirmation Number</th>
-    <th>Booking</th>
-  </tr>
-  </thead>
-
-  <tbody>
-  <% @tickets.each do |ticket| %>
+  <table class="bordered-table" >
+    <thead >
     <tr>
-      <td><%= ticket.train.train_number %></td>
-      <td><%= ticket.train.departure_station %></td>
-      <td><%= ticket.train.termination_station %></td>
-      <td><%= ticket.train.departure_date %></td>
-      <td><%= ticket.train.arrival_date %></td>
-      <td><%= ticket.train.arrival_time %></td>
-      <td><%= ticket.train.ticket_price %></td>
-      <td><%= ticket.confirmation_number %></td>
-      <td><%= button_to "Cancel Ticket", ticket, method: :delete, data: { confirm: 'Are you sure you want to cancel the ticket?' }, class: "btn btn-primary m-3" %></td>
+      <th>Train Number</th>
+      <th>Departure Station</th>
+      <th>Termination station</th>
+      <th>Departure Date</th>
+      <th>Arrival Date</th>
+      <th>Arrival Time</th>
+      <th>Ratings</th>
+      <th>Ticket Price</th>
+      <th>Confirmation Number</th>
+      <th>Booking</th>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+    <% @tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.train.train_number %></td>
+        <td><%= ticket.train.departure_station %></td>
+        <td><%= ticket.train.termination_station %></td>
+        <td><%= ticket.train.departure_date %></td>
+        <td><%= ticket.train.arrival_date %></td>
+        <td><%= ticket.train.arrival_time %></td>
+        <td><%= ticket.train.ratings %></td>
+        <td><%= ticket.train.ticket_price %></td>
+        <td><%= ticket.confirmation_number %></td>
+        <td><%= button_to "Cancel Ticket", ticket, method: :delete, data: { confirm: 'Are you sure you want to cancel the ticket?' }, class: "btn btn-primary m-3" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 
 <% else %>
   <h1>Past Tickets</h1>
@@ -60,6 +62,7 @@
       <th>Departure Date</th>
       <th>Arrival Date</th>
       <th>Arrival Time</th>
+      <th>Ratings</th>
       <th>Ticket Price</th>
       <th>Confirmation Number</th>
     </tr>
@@ -74,6 +77,7 @@
         <td><%= ticket.train.departure_date %></td>
         <td><%= ticket.train.arrival_date %></td>
         <td><%= ticket.train.arrival_time %></td>
+        <td><%= ticket.train.ratings %></td>
         <td><%= ticket.train.ticket_price %></td>
         <td><%= ticket.confirmation_number %></td>
       </tr>
@@ -92,6 +96,7 @@
       <th>Departure Date</th>
       <th>Arrival Date</th>
       <th>Arrival Time</th>
+      <th>Ratings</th>
       <th>Ticket Price</th>
       <th>Confirmation Number</th>
       <th>Booking</th>
@@ -107,6 +112,7 @@
         <td><%= ticket.train.departure_date %></td>
         <td><%= ticket.train.arrival_date %></td>
         <td><%= ticket.train.arrival_time %></td>
+        <td><%= ticket.train.ratings %></td>
         <td><%= ticket.train.ticket_price %></td>
         <td><%= ticket.confirmation_number %></td>
         <td><%= button_to "Cancel Ticket", ticket, method: :delete, data: { confirm: 'Are you sure you want to cancel the ticket?' }, class: "btn btn-primary m-3" %></td>
@@ -116,13 +122,3 @@
   </table>
 <% end %>
 
-<!--<div id="tickets">-->
-<%# @tickets.each do |ticket| %>
-<%#= render ticket %>
-<!--    <p>-->
-<%#= link_to "Show this ticket", ticket %>
-<!--    </p>-->
-<%# end %>
-<!--</div>-->
-
-<%#= link_to "Book ticket", new_ticket_path %>
