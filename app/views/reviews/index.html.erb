@@ -44,7 +44,6 @@
     <th>Train Number</th>
     <th>Rating</th>
     <th>Feedback</th>
-    <th>Show</th>
     <th>Edit</th>
     <th>Delete</th>
   </tr>
@@ -57,7 +56,6 @@
       <td><%= review.train.train_number %></td>
       <td><%= review.rating %></td>
       <td><%= review.feedback %></td>
-      <td><%= link_to "Show this review", review %></td>
       <td>
         <% if current_user && current_user == review.user || current_user.id == 1 %>
         <%= link_to "Edit this review", edit_review_path(review) %>

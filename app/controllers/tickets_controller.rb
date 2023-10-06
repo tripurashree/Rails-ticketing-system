@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  load_and_authorize_resource
+  # load_and_authorize_resource
   before_action :set_ticket, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
 
@@ -43,6 +43,7 @@ class TicketsController < ApplicationController
 
   # POST /tickets or /tickets.json
   def create
+    print("DEBUG for params %%%%%%%%%%% confirmation",params)
     @train = Train.find(params[:train_id])
     @ticket = @train.tickets.build
     @ticket.user_id = params[:user_id]

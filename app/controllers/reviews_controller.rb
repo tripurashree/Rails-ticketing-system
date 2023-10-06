@@ -62,7 +62,6 @@ class ReviewsController < ApplicationController
     respond_to do |format|
       if @review.save
         train_rating = @review.train.reviews.average(:rating)
-
         @review.train.update(:ratings => train_rating)
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
         format.json { render :show, status: :created, location: @review }
@@ -79,6 +78,8 @@ class ReviewsController < ApplicationController
     @user = @review.user_id
     respond_to do |format|
       if @review.update(review_params)
+        train_rating = @review.train.reviews.average(:rating)
+        @review.train.update(:ratings => train_rating)
         format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
         format.json { render :show, status: :ok, location: @review }
       else
@@ -91,7 +92,8 @@ class ReviewsController < ApplicationController
   # DELETE /reviews/1 or /reviews/1.json
   def destroy
     @review.destroy!
-
+    train_rating = @review.train.reviews.average(:rating)
+    @review.train.update(:ratings => train_rating)
     respond_to do |format|
       format.html { redirect_to reviews_url, notice: "Review was successfully destroyed." }
       format.json { head :no_content }
