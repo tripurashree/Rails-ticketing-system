@@ -22,18 +22,42 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @trains = Train.all
-    @unique_departure_stations = Train.distinct.pluck(:departure_station)
-    @unique_arrival_stations = Train.distinct.pluck(:termination_station)
+    @unique_departure_stations = Train.distinct.pluck(:departure_station).map(&:downcase).uniq
+    @unique_arrival_stations = Train.distinct.pluck(:termination_station).map(&:downcase).uniq
 
-    if params[:departure_station].present? && params[:arrival_station].present?
-      @trains = Train.where(departure_station: params[:departure_station], termination_station: params[:arrival_station]).where( 'ratings >= ?', params[:review_rating])
-    else
-      if current_user.id !=1
-        @trains = Train.where('departure_date > ?', Date.current).where( 'seats_left > ?', 0 )
-      else
-        @trains = Train.all
+    if params[:departure_station].present? || params[:arrival_station].present? || params[:review_rating].present?
+
+      if params[:departure_station].present?
+        @trains = Train.where("departure_station COLLATE NOCASE = ?", params[:departure_station])
       end
+      if params[:arrival_station].present?
+
+        if @trains
+          @trains = @trains.where("termination_station COLLATE NOCASE = ?", params[:arrival_station]) ? @trains.where("termination_station COLLATE NOCASE = ?", params[:arrival_station]) : @trains
+        else
+          @trains = Train.where("termination_station COLLATE NOCASE = ?", params[:arrival_station])
+
+        end
+      end
+      if params[:review_rating].present?
+        if @trains
+          @trains = @trains.where( 'ratings >= ?', params[:review_rating]) ? @trains.where( 'ratings >= ?', params[:review_rating]) : @trains
+        else
+          @trains = Train.where( 'ratings >= ?', params[:review_rating])
+        end
+      end
+      if @trains
+        @trains = @trains.where('departure_date > ?', Date.current).where( 'seats_left > ?', 0 )
+      end
+    else
+      @trains = Train.where('departure_date > ?', Date.current).where( 'seats_left > ?', 0 )
+    #   if current_user.id !=1
+    #     @trains = Train.where('departure_date > ?', Date.current).where( 'seats_left > ?', 0 )
+    #   else
+    #     @trains = Train.all
+    #   end
     end
+
     print("DEBUG   trains      $#$#$#",@trains)
   end
 
