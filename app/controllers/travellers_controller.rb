@@ -1,6 +1,7 @@
 class TravellersController < ApplicationController
 
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
   def index
     @users = User.all.reject {|user| user.id ==1}
 
@@ -48,10 +49,11 @@ class TravellersController < ApplicationController
 
 
   def destroy
-    @user.destroy!
     if current_user.id !=1
+      @user.destroy!
       redirect_to destroy_user_session_path
     else
+      @user.destroy!
       respond_to do |format|
         format.html { redirect_to travellers_url, notice: "User was successfully destroyed." }
         format.json { head :no_content }
