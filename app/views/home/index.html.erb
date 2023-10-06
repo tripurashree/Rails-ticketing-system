@@ -37,15 +37,23 @@
         <%= link_to "View Reviews", reviews_path, class: "nav-link" %>
         | <%= link_to "New Review", new_review_path, class: "nav-link" %>
       </li>
-
+      <% if current_user.id == 1 %>
+        <li class="nav-item">
+          <%= link_to "View Passengers of a train", passenger_list_new_path, method: :get %>
+        </li>
+      <% end %>
+      <br>
       <li class="nav-item">
         <%= link_to "SignOut", destroy_user_session_path, method: :delete, class: "nav-link" %>
       </li>
+      <br>
       <% if current_user.id != 1 %>
       <li class="nav-item">
         <%= button_to "Delete Account", traveller_path(current_user), method: :delete %>
       </li>
       <% end %>
+
+
       <!-- Add more navigation links as needed -->
     </ul>
   </nav>

@@ -1,0 +1,46 @@
+<style>
+    .bordered-table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .bordered-table th, .bordered-table td {
+        border: 1px solid #000; /* Change #000 to the color you want for the border */
+        padding: 8px;
+        text-align: left;
+    }
+
+    .bordered-table th {
+        background-color: #f0f0f0; /* Change to the background color you want for headers */
+    }
+</style>
+
+<h1>PassengerList</h1>
+
+<%= form_tag passenger_list_new_path, method: 'get' do |form| %>
+
+  <label for="sort_by_review" class="m-3">Select the train number</label>
+  <%= select_tag :train_number, options_for_select(['']+@trains_number) %>
+  <%= submit_tag 'Search', class: "btn btn-outline-success m-3" %>
+<% end %>
+
+<br> <br>
+<table class="bordered-table">
+  <thead >
+  <tr>
+    <th>Passenger Name</th>
+    <th>Passenger MailID</th>
+  </tr>
+  </thead>
+<% if @passengers %>
+<% @passengers.each do |passenger| %>
+    <% if passenger.id !=1 %>
+  <td> <%= passenger.name %></td>
+    <td>  <%= passenger.email %> </td>
+        </table>
+    <% end %>
+<% end %>
+  <br>  <br>
+<% else %>
+  <br> <br>No Passenger Travelling !!
+<% end %>
