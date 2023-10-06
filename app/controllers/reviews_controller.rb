@@ -1,10 +1,29 @@
 class ReviewsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_review, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  #before_action :authenticate_user!
   # GET /reviews or /reviews.json
   def index
     @reviews = Review.all
+
+    if params[:filter_applied]
+      user_name = params[:user_name]
+      train_number = params[:train_number]
+      unless user_name.blank?
+        user = User.where("name COLLATE NOCASE = ?", user_name)
+        if user
+          user_ids = user.pluck(:id)
+          @reviews = @reviews.where(user_id: user_ids)
+        end
+        # @reviews = @reviews.where("user_id in :user_ids", user_ids: users.id)
+      end
+      unless train_number.blank?
+        train = Train.find_by(train_number: train_number)
+        if train
+          @reviews = @reviews.where(:train_id => train.id)
+        end
+      end
+    end
   end
 
   # GET /reviews/1 or /reviews/1.json
@@ -13,7 +32,10 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/new
   def new
-    @trains_list = Train.all.map {|train| train.train_number}.uniq
+    # @trains_list = Train.all.map {|train| train.train_number}.uniq
+    tickets = Ticket.where("user_id = :userId",userId: current_user.id)
+    train_ids = tickets.pluck(:train_id)
+    @trains_list = Train.where(id: train_ids).pluck(:train_number)
     print('DEBUG BEINGS:::::::::::::::::::::',@trains_list)
     #@user = User.find(params[:user_id])
     #@train = Train.find(params[:train_id])
@@ -27,6 +49,8 @@ class ReviewsController < ApplicationController
   def edit
     @trains_list = Train.all.map {|train| train.train_number}.uniq
     print('DEBUG BEINGS:::::::::::::::::::::',@trains_list)
+    @train = @review.train_id
+    @user = @review.user_id
   end
 
   # POST /reviews or /reviews.json
@@ -51,6 +75,8 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1 or /reviews/1.json
   def update
+    @train = @review.train_id
+    @user = @review.user_id
     respond_to do |format|
       if @review.update(review_params)
         format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
@@ -80,6 +106,6 @@ class ReviewsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def review_params
-    params.require(:review).permit(:feedback,:rating)
+    params.require(:review).permit(:feedback,:rating, :train_id, :user_id)
   end
 end

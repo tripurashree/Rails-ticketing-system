@@ -1,4 +1,5 @@
 <%= form_with(model: review) do |form| %>
+  <%#= form.hidden_field :train_id, value: train_id %>
   <%= form.hidden_field :user_id, value: current_user.id %>
   <% if review.errors.any? %>
     <div style="color: red">
