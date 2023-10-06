@@ -43,10 +43,16 @@
         </li>
       <% end %>
       <br>
+      <br>
+      <li class="nav-item">
+        <%= link_to "Create Tickets for  others", new_others_ticket_path %> | <%= link_to "View Tickets Booked for  others", others_tickets_path %>
+      </li>
+      <br>
+      <br>
       <li class="nav-item">
         <%= link_to "SignOut", destroy_user_session_path, method: :delete, class: "nav-link" %>
       </li>
-      <br>
+
       <% if current_user.id != 1 %>
       <li class="nav-item">
         <%= button_to "Delete Account", traveller_path(current_user), method: :delete %>
@@ -54,7 +60,6 @@
       <% end %>
 
 
-      <!-- Add more navigation links as needed -->
     </ul>
   </nav>
 

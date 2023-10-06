@@ -25,6 +25,7 @@
 <% end %>
 
 <br> <br>
+<% if @passengers %>
 <table class="bordered-table">
   <thead >
   <tr>
@@ -32,15 +33,17 @@
     <th>Passenger MailID</th>
   </tr>
   </thead>
-<% if @passengers %>
-<% @passengers.each do |passenger| %>
-    <% if passenger.id !=1 %>
-  <td> <%= passenger.name %></td>
-    <td>  <%= passenger.email %> </td>
-        </table>
-    <% end %>
+  <% @passengers.each do |p| %>
+    <tr>
+      <td><%= p.name %></td>
+      <td><%= p.email %></td>
+    </tr>
+  <% end %>
+</table>
 <% end %>
-  <br>  <br>
+<!--  <tbody>-->
+<% if @passengers %>
+
 <% else %>
-  <br> <br>No Passenger Travelling !!
+    <br> <br><p>No Passenger Travelling !!</p>
 <% end %>

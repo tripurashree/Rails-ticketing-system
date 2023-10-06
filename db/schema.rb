@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_09_30_232710) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_06_085139) do
   create_table "reviews", force: :cascade do |t|
     t.text "feedback"
     t.datetime "created_at", null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_09_30_232710) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "train_id", null: false
+    t.integer "booked_by"
     t.index ["confirmation_number"], name: "index_tickets_on_confirmation_number", unique: true
     t.index ["train_id"], name: "index_tickets_on_train_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
