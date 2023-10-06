@@ -3,11 +3,10 @@
 
 <div>
 
-  <%= link_to "Edit this user", edit_traveller_path(@user) %>
   <%if current_user.id == 1%>
-    |  <%= link_to "Back to users", travellers_path %>
+    <%= link_to "Back to users", travellers_path %>
   <%end%>
   <%if current_user.id != 1%>
-  <%= button_to "Destroy this user", traveller_path(@user), method: :delete %>
+    <%= button_to "Destroy this user", traveller_path(@user), method: :delete %>
   <% end %>
 </div>

@@ -48,6 +48,11 @@
   </div>
   <br>
   <div>
+    <%= form.label :ratings, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
+    <%= form.select :ratings, [0,1,2,3,4,5] %>
+  </div>
+  <br>
+  <div>
     <%= form.label :ticket_price, style: "display: inline-block; width: 150px; text-align: left; margin-left: 10px" %>
     <%= form.text_field :ticket_price %>
   </div>
