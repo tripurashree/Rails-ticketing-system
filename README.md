@@ -67,4 +67,14 @@ http://152.7.176.228:8080/
 5. **Provide Feedback:** Share your feedback and ratings after your journey.
 6. **Profile Management:** Edit your profile information.
 
-**Admin Access:** If you are an admin, access the admin dashboard to manage the system.
+**Admin Access:** If you are an admin, access the admin credentials to manage the system.
+
+## Screenshot
+
+<img width="485" alt="ss 6" src="https://media.github.ncsu.edu/user/30678/files/cf3efe01-efc6-44a0-ba86-bfc7b7ce54cf">
+<img width="514" alt="ss4" src="https://media.github.ncsu.edu/user/30678/files/4ef58a5e-5187-451e-95f3-737f08c45b52">
+<img width="960" alt="ss3" src="https://media.github.ncsu.edu/user/30678/files/17b3383b-04fa-4bbc-879d-d1dc5ae0964d">
+<img width="956" alt="ss 1" src="https://media.github.ncsu.edu/user/30678/files/be2043ed-f948-4a33-9dbb-e7351c0574ab">
+<img width="956" alt="ss2" src="https://media.github.ncsu.edu/user/30678/files/07eeed0e-0c1f-4ccd-9985-31a32cf4ca5c">
+<img width="960" alt="ss5" src="https://media.github.ncsu.edu/user/30678/files/823f844b-6b59-46a4-afc3-ae644f3a1ad6">
+
